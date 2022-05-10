@@ -1,0 +1,12 @@
+#goal definition
+int32 samples
+---
+#result definition
+int32 min
+int32 max
+---
+#feedback
+int32 sample
+int32 data
+int32 min
+int32 max

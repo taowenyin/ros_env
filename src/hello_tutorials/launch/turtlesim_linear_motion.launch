@@ -1,0 +1,9 @@
+<launch>
+    <arg name="speed" default="1" />
+    <arg name="distance" default="10" />
+    <arg name="is_forward" default="False" />
+
+    <node pkg="hello_tutorials" name="turtlesim_linear_motion"
+        type="turtlesim_linear_motion.py"
+        args="$(arg speed) $(arg distance) $(arg is_forward)"/>
+</launch>
