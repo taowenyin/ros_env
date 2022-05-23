@@ -1,0 +1,18 @@
+<launch>
+    <node pkg="turtlesim" type="turtlesim_node" name="sim"/>
+    <node pkg="turtlesim" type="turtle_teleop_key" name="teleop" output="screen"/>
+
+    <node name="baselink_tf_broadcaster" pkg="ex_tutorials"
+        type="baselink_tf_broadcaster.py" respawn="false" output="screen" >
+        <param name="turtle" type="string" value="turtle1" />
+    </node >
+
+    <node name="laser_tf_broadcaster" pkg="ex_tutorials"
+        type="laser_tf_listener.py" respawn="false" output="screen" />
+
+    <node name="broadcaster_static_laser" pkg="tf2_ros" type="static_transform_publisher"
+        args="0.1 0.0 0.2 0.0 0.0 0.0 1.0 turtle1 base_laser" />
+
+    <node name="broadcaster_static_point" pkg="tf2_ros" type="static_transform_publisher"
+        args="0.3 0.0 0.0 0.0 0.0 0.0 1.0 base_laser laser_point" />
+</launch>

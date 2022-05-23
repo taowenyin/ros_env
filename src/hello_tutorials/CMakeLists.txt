@@ -16,6 +16,8 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   tf
   turtlesim
+  urdf
+  xacro
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,7 +110,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES hello_tutorials
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime actionlib actionlib_msgs tf turtlesim
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime actionlib actionlib_msgs tf turtlesim urdf xacro
 #  DEPENDS system_lib
 )
 

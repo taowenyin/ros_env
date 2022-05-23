@@ -169,6 +169,8 @@ catkin_install_python(PROGRAMS
   scripts/turtle_create_controller.py scripts/turtle_create_circular.py
   scripts/turtlesim_goal_motion.py
   scripts/matrix_transpose_client.py scripts/matrix_transpose_server.py scripts/random_number.py
+  scripts/turtle_copy_circular.py
+  scripts/turtle_grid.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

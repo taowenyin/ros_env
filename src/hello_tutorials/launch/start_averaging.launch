@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="hello_tutorials" type="random_number.py" name="random_number" output="screen"/>
+    <node pkg="hello_tutorials" type="averaging_server.py" name="averaging_server" output="screen"/>
+    <node pkg="hello_tutorials" type="averaging_client.py" name="averaging_client" output="screen"/>
+</launch>
