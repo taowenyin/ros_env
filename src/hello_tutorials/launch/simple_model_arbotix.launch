@@ -1,0 +1,30 @@
+<launch>
+    <arg name="model"
+        default="$(find hello_tutorials)/urdf/simple_sai_robot.urdf"/>
+    <arg name="rvizconfig"
+        default="$(find hello_tutorials)/rviz/simple_model_arbotix.rviz" />
+    <arg name="gui" default="true" />
+    
+    <param name="robot_description"
+        command="$(find xacro)/xacro $(arg model)" />
+
+    <node if="$(arg gui)" name="joint_state_publisher_gui" 
+        pkg="joint_state_publisher_gui" 
+        type="joint_state_publisher_gui" />
+    <node unless="$(arg gui)" name="joint_state_publisher" 
+        pkg="joint_state_publisher" 
+        type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher"
+        type="robot_state_publisher" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" 
+        required="true" />
+
+    <node name="arbotix" pkg="arbotix_python"
+            type="arbotix_driver" output="screen">
+        <rosparam file="$(find hello_tutorials)/config/robot_arbotix.yaml"
+            command="load" />
+        <param name="sim" value="true" />
+    </node>
+
+</launch>

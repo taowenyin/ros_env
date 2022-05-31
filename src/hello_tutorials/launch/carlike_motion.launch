@@ -1,0 +1,19 @@
+<launch>
+    <arg name="model"
+        default="$(find hello_tutorials)/urdf/simple_sai_robot.urdf"/>
+    <arg name="rvizconfig"
+        default="$(find hello_tutorials)/rviz/carlike_motion.rviz" />
+    <arg name="gui" default="true" />
+
+    <param name="robot_description"
+        command="$(find xacro)/xacro $(arg model)" />
+
+    <node name="rotate_wheel" pkg="hello_tutorials"
+        type="rotate_wheel.py" output="screen"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher"
+        type="robot_state_publisher" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"
+        required="true" />
+</launch>

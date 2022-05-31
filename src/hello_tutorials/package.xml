@@ -59,6 +59,9 @@
   <build_depend>turtlesim</build_depend>
   <build_depend>urdf</build_depend>
   <build_depend>xacro</build_depend>
+  <build_depend>gazebo_plugins</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>gazebo_ros_control</build_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
@@ -66,6 +69,9 @@
   <build_export_depend>turtlesim</build_export_depend>
   <build_export_depend>urdf</build_export_depend>
   <build_export_depend>xacro</build_export_depend>
+  <build_export_depend>gazebo_plugins</build_export_depend>
+  <build_export_depend>gazebo_ros</build_export_depend>
+  <build_export_depend>gazebo_ros_control</build_export_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
@@ -76,6 +82,9 @@
   <exec_depend>turtlesim</exec_depend>
   <exec_depend>urdf</exec_depend>
   <exec_depend>xacro</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_ros_control</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

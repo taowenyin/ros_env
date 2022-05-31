@@ -18,6 +18,9 @@ find_package(catkin REQUIRED COMPONENTS
   turtlesim
   urdf
   xacro
+  gazebo_plugins
+  gazebo_ros
+  gazebo_ros_control
 )
 
 ## System dependencies are found with CMake's conventions
@@ -110,7 +113,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES hello_tutorials
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime actionlib actionlib_msgs tf turtlesim urdf xacro
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime actionlib actionlib_msgs tf turtlesim urdf xacro gazebo_plugins gazebo_ros gazebo_ros_control
 #  DEPENDS system_lib
 )
 
@@ -175,6 +178,7 @@ catkin_install_python(PROGRAMS
   scripts/turtle_tf_broadcaster.py scripts/turtle_tf_listener.py
   scripts/static_tf_broadcaster.py scripts/fixed_tf_broadcaster.py scripts/dynamic_tf_broadcaster.py
   scripts/turtle_tf_travel_listener.py
+  scripts/rotate_wheel.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
