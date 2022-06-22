@@ -1,0 +1,70 @@
+<launch>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="model"
+        default="$(find hello_tutorials)/urdf/simple_sai_robot_imu.urdf"/>
+    <arg name="rvizconfig"
+        default="$(find hello_tutorials)/rviz/simple_model_imu.rviz" />
+
+    <param name="robot_description"
+        command="$(find xacro)/xacro $(arg model)" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name"
+             value="$(find hello_tutorials)/worlds/turtlebot3_world.world"/>
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="headless" value="$(arg headless)"/>
+    </include>
+
+    <node if="$(arg gui)" name="joint_state_publisher_gui"
+        pkg="joint_state_publisher_gui"
+        type="joint_state_publisher_gui" />
+    <node unless="$(arg gui)" name="joint_state_publisher"
+        pkg="joint_state_publisher"
+        type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher"
+        type="robot_state_publisher" />
+
+    <node name="twist_keyboard" pkg="teleop_twist_keyboard"
+        type="teleop_twist_keyboard.py" output="screen" />
+
+    <node name="twist_joy" pkg="joy" type="joy_node" output="screen">
+        <param name="dev" type="string" value="/dev/input/js0" />
+    </node>
+
+    <!-- <node name="teleop_twist_joy" pkg="hello_tutorials"
+        type="teleop_twist_joy.py" /> -->
+
+    <node name="teleop_twist_joy" pkg="teleop_twist_joy" type="teleop_node">
+        <!-- 实现低速运动使能键，Y键 -->
+        <param name="enable_button" type="int" value="0" />
+        <!-- 实现高速度运动使能键，B键 -->
+        <param name="enable_turbo_button" type="int" value="1" />
+        <!-- 遥感索引1的值表示控制linear -->
+        <param name="axis_linear" type="int" value="1" />
+        <!-- 低速运动linear最大值 -->
+        <param name="scale_linear" type="double" value="0.5" />
+        <!-- 高度速运动linear最大值 -->
+        <param name="scale_linear_turbo" type="double" value="1.0" />
+        <!-- 遥感索引0的表示angular方向 -->
+        <param name="axis_angular" type="int" value="0" />
+        <!-- 低速运动angular最大值 -->
+        <param name="scale_angular" type="double" value="1" />
+        <!-- 高度速运动angular最大值 -->
+        <param name="scale_angular_turbo" type="double" value="1.2" />
+    </node>
+
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-x -2.0 -y -0.5 -z 0.0 -unpause -urdf
+              -model sai_robot -param robot_description"
+        respawn="false" output="screen" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" 
+        required="true" />
+</launch>

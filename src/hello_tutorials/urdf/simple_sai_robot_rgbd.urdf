@@ -1,0 +1,672 @@
+<?xml version="1.0"?>
+<robot name="sai_robot">
+    <link name="base_footprint" />
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.25" length="0.01"/>
+            </geometry>
+            <material name="yellow">
+                <color rgba="1 0.4 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.25" length="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.00782" ixy="0" ixz="0"
+                iyy="0.00782" iyz="0" izz="0.01563"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <joint name="dummy_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.095" rpy="0.0 0.0 0.0"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+    </joint>
+
+    <link name="left_motor_link">
+        <visual>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.08"/>
+            </geometry>
+            <material name="gray">
+                <color rgba="0.75 0.75 0.75 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.08"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.00006" ixy="0" ixz="0"
+                iyy="0.00006" iyz="0" izz="0.00002"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="left_motor_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <link name="right_motor_link">
+        <visual>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.08"/>
+            </geometry>
+            <material name="gray" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.02" length="0.08"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.00006" ixy="0" ixz="0"
+                iyy="0.00006" iyz="0" izz="0.00002"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="right_motor_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <joint name="left_motor_join" type="fixed">
+        <origin xyz="0.125 0.22 -0.025" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="left_motor_link"/>
+    </joint>
+
+    <joint name="right_motor_join" type="fixed">
+        <origin xyz="0.125 -0.22 -0.025" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="right_motor_link"/>
+    </joint>
+
+    <link name="left_wheel_link">
+        <visual>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.07" length="0.04"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.07" length="0.04"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.00014" ixy="0" ixz="0"
+                iyy="0.00014" iyz="0" izz="0.00025"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="left_wheel_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <link name="right_wheel_link">
+        <visual>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.07" length="0.04"/>
+            </geometry>
+            <material name="black" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0 0" rpy="1.57 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.07" length="0.04"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.00014" ixy="0" ixz="0"
+                iyy="0.00014" iyz="0" izz="0.00025"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="right_wheel_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <joint name="base_l_wheel_joint" type="continuous">
+        <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="left_motor_link"/>
+        <child link="left_wheel_link"/>
+        <axis xyz="0.0 1.0 0.0"/>
+    </joint>
+
+    <joint name="base_r_wheel_joint" type="continuous">
+        <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="right_motor_link"/>
+        <child link="right_wheel_link"/>
+        <axis xyz="0.0 1.0 0.0"/>
+    </joint>
+
+    <transmission name="base_l_wheel_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_l_wheel_joint">
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="left_motor_link">
+            <mechanicalReduction>1</mechanicalReduction>
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <transmission name="base_r_wheel_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_r_wheel_joint">
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="right_motor_link">
+            <mechanicalReduction>1</mechanicalReduction>
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <gazebo>
+        <plugin name="differential_drive_controller"
+                filename="libgazebo_ros_diff_drive.so">
+            <rosDebugLevel>Debug</rosDebugLevel>
+            <robotNamespace>/</robotNamespace>
+            <alwaysOn>true</alwaysOn>
+            <odometrySource>world</odometrySource>
+            <broadcastTF>1</broadcastTF>
+            <publishTf>1</publishTf>
+            <publishWheelTF>true</publishWheelTF>
+            <publishOdomTF>true</publishOdomTF>
+            <publishWheelJointState>true</publishWheelJointState>
+            <updateRate>100.0</updateRate>
+            <legacyMode>true</legacyMode>
+            <leftJoint>base_l_wheel_joint</leftJoint>
+            <rightJoint>base_r_wheel_joint</rightJoint>
+            <wheelSeparation>0.52</wheelSeparation>
+            <wheelDiameter>0.14</wheelDiameter>
+            <wheelTorque>30</wheelTorque>
+            <wheelAcceleration>1.8</wheelAcceleration>
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryTopic>odom</odometryTopic>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+        </plugin>
+    </gazebo>
+
+    <link name="caster_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.045"/>
+            </geometry>
+            <material name="black" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.045"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.00008" ixy="0" ixz="0"
+                iyy="0.00008" iyz="0" izz="0.00008"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="caster_link">
+        <material>Gazebo/Black</material>
+        <mu1 value="0.0"/>
+        <mu2 value="0.0"/>
+        <kp value="1000000.0" />
+        <kd value="10.0" />
+    </gazebo>
+
+    <joint name="caster_joint" type="fixed">
+        <origin xyz="-0.125 0.0 -0.05" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="caster_link"/>
+    </joint>
+
+    <link name="imu_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.1 0.1 0.01"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0.42 0.54 0.45 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.1 0.1 0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.00004" ixy="0" ixz="0"
+                iyy="0.00008" iyz="0" izz="0.00004"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="imu_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+    <gazebo reference="imu_link">
+        <gravity>true</gravity>
+        <sensor name="imu_sensor" type="imu">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <topic>__default_topic__</topic>
+            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+                <topicName>imu</topicName>
+                <bodyName>imu_link</bodyName>
+                <updateRateHZ>10.0</updateRateHZ>
+                <gaussianNoise>0.0</gaussianNoise>
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+                <frameName>imu_link</frameName>
+                <initialOrientationAsReference>false</initialOrientationAsReference>
+            </plugin>
+            <pose>0 0 0 0 0 0</pose>
+        </sensor>
+    </gazebo>
+
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="-0.125 0.0 0.01" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+
+    <link name="laser_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.2"/>
+            <inertia ixx="0.00017" ixy="0" ixz="0"
+                iyy="0.00017" iyz="0" izz="0.00025"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="laser_link">
+        <material>Gazebo/SkyBlue</material>
+    </gazebo>
+
+    <gazebo reference="laser_link">
+        <sensor name="ray_sensor" type="ray">
+            <pose>0 0 0 0 0 0</pose>
+            <always_on>true</always_on>
+            <visualize>false</visualize>
+            <update_rate>40</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.10</min>
+                    <max>30.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.0</stddev>
+                </noise>
+            </ray>
+            <plugin filename="libgazebo_ros_laser.so" name="laser_plugin">
+                <topicName>/scan</topicName>
+                <frameName>laser_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <joint name="laser_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.03" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="laser_link"/>
+    </joint>
+
+    <link name="camera_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.03 0.15 0.02"/>
+            </geometry>
+            <material name="gold">
+                <color rgba="0.9 0.9 0.1 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.03 0.15 0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.2"/>
+            <inertia ixx="0.00002" ixy="0" ixz="0"
+                iyy="0.00039" iyz="0" izz="0.00038"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="camera_link">
+        <material>Gazebo/Gold</material>
+    </gazebo>
+
+    <gazebo reference="camera_link">
+        <sensor type="depth" name="camera">
+            <update_rate>30.0</update_rate>
+            <camera name="head">
+                <horizontal_fov>1.047198</horizontal_fov>
+                <image>
+                    <width>1280</width>
+                    <height>720</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8</far>
+                </clip>
+            </camera>
+            <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_plugin">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>10</updateRate>
+                <cameraName>/camera</cameraName>
+                <imageTopicName>rgb/image_raw</imageTopicName>
+                <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+                <depthImageTopicName>depth/image_raw</depthImageTopicName>
+                <depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
+                <pointCloudTopicName>depth/points</pointCloudTopicName>
+                <frameName>rgbd_point_cloud</frameName>
+                <pointCloudCutoff>0.5</pointCloudCutoff>
+                <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+                <baseline>0.2</baseline>
+                <hackBaseline>0</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+                <CxPrime>0</CxPrime>
+                <Cx>0</Cx>
+                <Cy>0</Cy>
+                <focalLength>0</focalLength>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="0.18 0.0 0.015" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="camera_link"/>
+    </joint>
+
+    <link name="ir_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.01 0.02 0.04"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.01 0.02 0.04"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.000007" ixy="0" ixz="0"
+                iyy="0.000002" iyz="0" izz="0.000008"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="ir_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo reference="ir_link">
+        <sensor name="ir_sensor" type="ray">
+            <pose>0 0 0 0 0 0</pose>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>8</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14</min_angle>
+                        <max_angle>0.14</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>8</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14</min_angle>
+                        <max_angle>0.14</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.05</min>
+                    <max>1.0</max>
+                    <resolution>0.1</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.0</stddev>
+                </noise>
+            </ray>
+            <plugin filename="libgazebo_ros_range.so" name="ir_plugin">
+                <gaussianNoise>0.01</gaussianNoise>
+                <alwaysOn>true</alwaysOn>
+                <fov>0.28</fov>
+                <radiation>infrared</radiation>
+                <topicName>/ir</topicName>
+                <frameName>ir_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <link name="us_front_left_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.01 0.02 0.04"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.01 0.02 0.04"/>
+            </geometry>
+            <material name="red" />
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.000007" ixy="0" ixz="0"
+                iyy="0.000002" iyz="0" izz="0.000008"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="us_front_left_link">
+        <material>Gazebo/Turquoise</material>
+    </gazebo>
+
+    <gazebo reference="us_front_left_link">
+        <sensor name="us_front_left_sensor" type="ray">
+            <pose>0 0 0 0 0 0</pose>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>8</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14</min_angle>
+                        <max_angle>0.14</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>8</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14</min_angle>
+                        <max_angle>0.14</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.05</min>
+                    <max>1.0</max>
+                    <resolution>0.1</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.0</stddev>
+                </noise>
+            </ray>
+            <plugin filename="libgazebo_ros_range.so" name="us_front_left_plugin">
+                <gaussianNoise>0.01</gaussianNoise>
+                <alwaysOn>true</alwaysOn>
+                <fov>0.28</fov>
+                <radiation>ultrasound</radiation>
+                <topicName>/us_front_left</topicName>
+                <frameName>us_front_left_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <link name="us_front_right_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.01 0.02 0.04"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.01 0.02 0.04"/>
+            </geometry>
+            <material name="red" />
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.000007" ixy="0" ixz="0"
+                iyy="0.000002" iyz="0" izz="0.000008"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="us_front_right_link">
+        <material>Gazebo/Turquoise</material>
+    </gazebo>
+
+    <gazebo reference="us_front_right_link">
+        <sensor name="us_front_right_sensor" type="ray">
+            <pose>0 0 0 0 0 0</pose>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>8</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14</min_angle>
+                        <max_angle>0.14</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>8</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14</min_angle>
+                        <max_angle>0.14</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.05</min>
+                    <max>1.0</max>
+                    <resolution>0.1</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.0</stddev>
+                </noise>
+            </ray>
+            <plugin filename="libgazebo_ros_range.so" name="us_front_right_plugin">
+                <gaussianNoise>0.01</gaussianNoise>
+                <alwaysOn>true</alwaysOn>
+                <fov>0.28</fov>
+                <radiation>ultrasound</radiation>
+                <topicName>/us_front_right</topicName>
+                <frameName>us_front_right_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <joint name="ir_joint" type="fixed">
+        <origin xyz="-0.2 0.0 0.025" rpy="0.0 0.0 3.1415926"/>
+        <parent link="base_link"/>
+        <child link="ir_link"/>
+    </joint>
+
+    <joint name="us_front_left_joint" type="fixed">
+        <origin xyz="0.18 0.12 0.025" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="us_front_left_link"/>
+    </joint>
+
+    <joint name="us_front_right_joint" type="fixed">
+        <origin xyz="0.18 -0.12 0.025" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="us_front_right_link"/>
+    </joint>
+</robot>
